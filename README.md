@@ -13,6 +13,8 @@ This lab simulates a corporate Active Directory environment and walks through a 
 **Attacker:** Kali Linux 2023 ARM64 (UTM, Apple Silicon)  
 **Result:** NT AUTHORITY\SYSTEM achieved on DC — all vulnerabilities remediated
 
+> ⚠️ **Note:** A `hashes.txt` file containing extracted NTLM hashes was generated during the attack phase and saved locally on the attacker machine. It is intentionally **not included** in this repository for security reasons.
+
 ---
 
 ## 🏗️ Lab Architecture
@@ -58,7 +60,7 @@ queryuser madmin
 
 ### Phase 2 — Credential Dumping (secretsdump)
 
-Used Impacket's `secretsdump` to extract all NTLM hashes and Kerberos keys from the DC using the DRSUAPI replication method.
+Used Impacket's `secretsdump` to extract all NTLM hashes and Kerberos keys from the DC using the DRSUAPI replication method. Results saved to `hashes.txt` (not included in repo).
 
 ```bash
 python3 secretsdump.py 'lab.local/Admin:Password@<DC_IP>'
@@ -71,9 +73,9 @@ python3 secretsdump.py 'lab.local/Admin:Password@<DC_IP>'
 - LSA Secrets and machine account credentials
 
 ```
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH>
-krbtgt:502:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH>
-lab.local\madmin:1603:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH>
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH_REDACTED>
+krbtgt:502:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH_REDACTED>
+lab.local\madmin:1603:aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH_REDACTED>
 ```
 
 ---
@@ -165,6 +167,8 @@ AD-Attack-Defense-Lab/
     └── harden_dc.ps1                  # Hardening commands
 ```
 
+> `hashes.txt` — generated locally during attack phase, not committed to repo
+
 ---
 
 ## ⚠️ Disclaimer
@@ -176,5 +180,4 @@ This lab was conducted in a **controlled, isolated environment** for educational
 ## 👤 Author
 
 **Harshvardhan Kamble**  
-Georgia State University
 May 2026
